@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paw_pal_project/splash_module/spash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,9 +11,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Container(color: Colors.white,),
+      home: SplashScreen(),
     );
   }
 }

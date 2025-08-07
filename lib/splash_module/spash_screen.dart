@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 
+import '../dashboard_module/dashboard_model.dart';
+
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
   @override
@@ -43,11 +45,13 @@ class SplashScreen extends StatelessWidget {
             'assets/splashImage.png',
           ),
           Bounceable(
-              onTap: () {},
+              onTap: () {
+                navigateToDashboard(context);
+              },
               child: Container(
-                  height: 40,
+                  height: 45,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(25),
                     color: Colors.amber,
                   ),
                   child: const Center(
@@ -63,4 +67,5 @@ class SplashScreen extends StatelessWidget {
       ),
     );
   }
+
 }

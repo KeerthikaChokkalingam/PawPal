@@ -28,6 +28,12 @@ class _DashboardScreen extends State<DashboardScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    fetchAnimals(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     return Scaffold(

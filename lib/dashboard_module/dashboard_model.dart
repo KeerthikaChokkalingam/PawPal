@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'dashboard_data_model.dart';
 import 'dashboard_screen.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
+ValueNotifier<List<Animal>> animalList = ValueNotifier<List<Animal>>([]);
 void navigateToDashboard(BuildContext context){
   Navigator.push(
     context,
@@ -41,7 +45,7 @@ class CustomBottomBar extends StatelessWidget {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.transparent,
                 ),
@@ -121,4 +125,46 @@ class BubbleBarPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
+Future<String?> getAccessToken(BuildContext context) async {
+  const clientId = 'eP0ShAbKCBiRB1m6wHtH163krvR6idA6y6TUMFh5QlbzcUmQIt';
+  const clientSecret = 'oB7s1ZzwQn6OduxVFd72TnkNOeLIIdPnaz5fp3TV';
+
+  final response = await http.post(
+    Uri.parse('https://api.petfinder.com/v2/oauth2/token'),
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: {
+      'grant_type': 'client_credentials',
+      'client_id': clientId,
+      'client_secret': clientSecret,
+    },
+  );
+
+  if (response.statusCode == 200) {
+    final data = jsonDecode(response.body);
+    return data['access_token'];
+  } else {
+    ShowMyDialog(context,"Need Internet To fetch list!","Failure");
+    return null;
+  }
+}
+Future<void> fetchAnimals(BuildContext context) async {
+  final token = await getAccessToken(context);
+  if (token == null) {
+    ShowMyDialog(context,"Failed to get token","Token Error");
+    return;
+  }
+
+  final response = await http.get(
+    Uri.parse('https://api.petfinder.com/v2/animals'),
+    headers: {
+      'Authorization': 'Bearer $token',
+    },
+  );
+  if (response.statusCode == 200) {
+    animalList.value = parseAnimals(response.body);
+  } else {
+    ShowMyDialog(context,"Error fetching animals","Api Error");
+  }
 }

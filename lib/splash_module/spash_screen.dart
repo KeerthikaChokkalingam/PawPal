@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 
-import '../dashboard_module/dashboard_model.dart';
+import '../dashboard_module/viewModel/dashboard_model.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

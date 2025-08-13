@@ -92,3 +92,8 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
     - 'assets/splashImage.png'
+    - 'assets/birds.png'
+    - 'assets/cat.png'
+    - 'assets/rabit.jpg'
+    - 'assets/dogs.png'
+    - 'assets/dogs.webp'

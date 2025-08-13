@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'animal_list_screen.dart';
-import 'dashboard_model.dart';
-import 'favourite_screen.dart';
-import 'homeScreen.dart';
+import '../exploreTab/animal_list_screen.dart';
+import '../viewModel/dashboard_model.dart';
+import '../favoritesTab/favourite_screen.dart';
+import '../homeTab/homeScreen.dart';
 
 class DashboardScreen extends StatefulWidget{
   const DashboardScreen({super.key});
@@ -13,10 +13,10 @@ class DashboardScreen extends StatefulWidget{
 class _DashboardScreen extends State<DashboardScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _screens = const [
+  final List<Widget> _screens = [
     Homescreen(),
-    AnimalListScreen(),
-    FavouriteScreen(),
+    const AnimalListScreen(),
+    const FavouriteScreen(),
   ];
 
   void _onItemTapped(int index) {
